@@ -1,57 +1,42 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const loader = require('sass-loader');
 
 module.exports = {
+  entry: './src/index.js',
   output: {
-    path: path.join(__dirname,'App'),
-    filename: 'scripts/main.bundle-[hash].js'
+    filename: 'bundle.[hash].js',
+    path: path.resolve(__dirname, 'App'),
   },
-
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
+        resolve: {
+          extensions: ['.js', '.jsx'],
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|svg|jpeg|gif)$/,
+        loader: 'file-loader',
+        options:{
+          name: 'img/[name].[hash:4].[ext]'
         }
       },
-      {
-        test: /\.s?css$/,
-        use: [
-          { loader: 'style-loader' },
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader' },
-          { loader: 'sass-loader'},
-        ]
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'static/img/[name].[hash:8].[ext]',
-        },
-      }
     ],
   },
-
-  resolve: {
-    extensions: ['.js', '.json', '.jsx'],
-  },
-
-  // EVIROMENT MODE
-  mode: process.env.NODE_ENV || 'development',
-  
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebPackPlugin({
-      template: path.join(__dirname,'public','index.html'),
-      filename: 'index.html'
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
     }),
-    new MiniCssExtractPlugin({
-      filename: "static/css/[name].[contenthash].css",
-    })
-  ]
+  ],
 };

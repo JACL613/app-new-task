@@ -1,0 +1,12 @@
+#assg{
+    overflow:auto;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    position: relative;
+    align-items:flex-start;
+    width: auto;
+    height: auto;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+}

@@ -1,0 +1,22 @@
+#footer{
+    grid-column-start:1;
+    grid-column-end:3;
+    grid-row-start:3;
+    grid-row-end:4;
+    background: linear-gradient(315deg, rgba(48,17,83,1) 35%, rgba(232,112,13,1) 95%);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+#derechos{
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+#DA{
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+#footer > a{
+    text-align: center;
+    color: blue;
+}
